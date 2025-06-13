@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediBot - Your AI Medical Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9',
+                        secondary: '#06b6d4',
+                        accent: '#8b5cf6',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                        medical: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-medical-50 via-white to-cyan-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-sm border-b border-medical-100 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-gradient-to-r from-medical-500 to-secondary p-2 rounded-xl">
+                        <i class="fas fa-stethoscope text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold bg-gradient-to-r from-medical-600 to-secondary bg-clip-text text-transparent">
+                        MediBot
+                    </span>
+                </div>
+                <div id="nav-buttons" class="flex items-center space-x-4">
+                    <!-- Navigation buttons will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Landing Page -->
+    <div id="landing-page" class="min-h-screen">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-medical-600/5 to-cyan-600/5"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+                <div class="text-center animate-fade-in">
+                    <div class="mb-8">
+                        <div class="inline-flex items-center justify-center p-4 bg-gradient-to-r from-medical-500 to-secondary rounded-full mb-6 animate-bounce-slow">
+                            <i class="fas fa-robot text-white text-4xl"></i>
+                        </div>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6 animate-slide-up">
+                        Your AI-Powered
+                        <span class="bg-gradient-to-r from-medical-600 to-secondary bg-clip-text text-transparent">
+                            Medical Assistant
+                        </span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto animate-slide-up" style="animation-delay: 0.2s">
+                        Get instant, reliable medical information and guidance powered by advanced AI technology. 
+                        Available 24/7 to help answer your health questions.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style="animation-delay: 0.4s">
+                        <button onclick="showLogin()" class="px-8 py-4 bg-gradient-to-r from-medical-500 to-secondary text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                            Get Started
+                        </button>
+                        <button onclick="showRegister()" class="px-8 py-4 border-2 border-medical-500 text-medical-600 rounded-full font-semibold hover:bg-medical-500 hover:text-white transition-all duration-200">
+                            <i class="fas fa-user-plus mr-2"></i>
+                            Create Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-20 bg-white/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                        Why Choose MediBot?
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                        Advanced AI technology meets medical expertise to provide you with reliable health information
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center p-8 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-4 rounded-full w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                            <i class="fas fa-clock text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">24/7 Availability</h3>
+                        <p class="text-gray-600">Get medical guidance anytime, anywhere. Our AI assistant never sleeps.</p>
+                    </div>
+                    <div class="text-center p-8 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="bg-gradient-to-r from-blue-500 to-cyan-500 p-4 rounded-full w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                            <i class="fas fa-brain text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">AI-Powered Intelligence</h3>
+                        <p class="text-gray-600">Advanced machine learning algorithms trained on medical knowledge bases.</p>
+                    </div>
+                    <div class="text-center p-8 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-4 rounded-full w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Secure & Private</h3>
+                        <p class="text-gray-600">Your health information is protected with enterprise-grade security.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login-page" class="hidden min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <div class="text-center">
+                <div class="bg-gradient-to-r from-medical-500 to-secondary p-3 rounded-full w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                    <i class="fas fa-sign-in-alt text-white text-2xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
+                <p class="text-gray-600">Please sign in to your account</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <form id="login-form" class="space-y-6">
+                    <div>
+                        <label for="login-username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <input type="text" id="login-username" required
+                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-medical-500 focus:border-transparent transition-all duration-200"
+                                   placeholder="Enter your username">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="login-password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input type="password" id="login-password" required
+                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-medical-500 focus:border-transparent transition-all duration-200"
+                                   placeholder="Enter your password">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-medical-500 to-secondary text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200">
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        Sign In
+                    </button>
+                </form>
+                <div class="mt-6 text-center">
+                    <p class="text-gray-600">
+                        Don't have an account? 
+                        <button onclick="showRegister()" class="text-medical-600 hover:text-medical-700 font-semibold ml-1">
+                            Sign up here
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="register-page" class="hidden min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <div class="text-center">
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-3 rounded-full w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+                    <i class="fas fa-user-plus text-white text-2xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Create Account</h2>
+                <p class="text-gray-600">Join MediBot to get started</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <form id="register-form" class="space-y-6">
+                    <div>
+                        <label for="register-username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <input type="text" id="register-username" required
+                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
+                                   placeholder="Choose a username">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="register-password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input type="password" id="register-password" required
+                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
+                                   placeholder="Create a password">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Create Account
+                    </button>
+                </form>
+                <div class="mt-6 text-center">
+                    <p class="text-gray-600">
+                        Already have an account? 
+                        <button onclick="showLogin()" class="text-emerald-600 hover:text-emerald-700 font-semibold ml-1">
+                            Sign in here
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Page -->
+    <div id="chat-page" class="hidden min-h-screen">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Chat Header -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-gradient-to-r from-medical-500 to-secondary p-3 rounded-full">
+                            <i class="fas fa-robot text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">MediBot Assistant</h1>
+                            <p class="text-gray-600">Ask me anything about your health</p>
+                        </div>
+                    </div>
+                    <div id="user-info" class="text-right">
+                        <p class="text-sm text-gray-600" id="user-status">Welcome!</p>
+                        <button onclick="logout()" class="text-sm text-red-600 hover:text-red-700 mt-1">
+                            <i class="fas fa-sign-out-alt mr-1"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Container -->
+            <div class="bg-white rounded-2xl shadow-lg h-96 mb-6 flex flex-col">
+                <div id="chat-messages" class="flex-1 p-6 overflow-y-auto space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <div class="bg-gradient-to-r from-medical-500 to-secondary p-2 rounded-full">
+                            <i class="fas fa-robot text-white text-sm"></i>
+                        </div>
+                        <div class="bg-medical-50 rounded-2xl rounded-tl-none p-4 max-w-xs lg:max-w-md">
+                            <p class="text-gray-800">Hello! I'm MediBot, your AI medical assistant. How can I help you today?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <form id="chat-form" class="flex space-x-4">
+                    <div class="flex-1 relative">
+                        <input type="text" id="chat-input" placeholder="Type your medical question here..." required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-medical-500 focus:border-transparent transition-all duration-200">
+                    </div>
+                    <button type="submit" class="px-6 py-3 bg-gradient-to-r from-medical-500 to-secondary text-white rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Messages -->
+    <div id="status-message" class="fixed top-20 right-4 z-50 hidden">
+        <div class="bg-white border-l-4 rounded-lg shadow-lg p-4 max-w-sm">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <i id="status-icon" class="text-xl"></i>
+                </div>
+                <div class="ml-3">
+                    <p id="status-text" class="text-sm font-medium"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Authentication state
+        let authState = {
+            token: null,
+            username: null,
+            isLoggedIn: false
+        };
+
+        // Page management
+        const pages = {
+            landing: document.getElementById('landing-page'),
+            login: document.getElementById('login-page'),
+            register: document.getElementById('register-page'),
+            chat: document.getElementById('chat-page')
+        };
+
+        function showPage(pageName) {
+            Object.values(pages).forEach(page => page.classList.add('hidden'));
+            pages[pageName].classList.remove('hidden');
+            updateNavigation();
+        }
+
+        function showLanding() { showPage('landing'); }
+        function showLogin() { showPage('login'); }
+        function showRegister() { showPage('register'); }
+        function showChat() { showPage('chat'); }
+
+        function updateNavigation() {
+            const navButtons = document.getElementById('nav-buttons');
+            const currentPage = Object.keys(pages).find(key => !pages[key].classList.contains('hidden'));
+            
+            if (authState.isLoggedIn) {
+                navButtons.innerHTML = `
+                    <span class="text-gray-700">Welcome, ${authState.username}</span>
+                    <button onclick="logout()" class="px-4 py-2 text-red-600 hover:text-red-700 transition-colors">
+                        <i class="fas fa-sign-out-alt mr-1"></i>Logout
+                    </button>
+                `;
+            } else {
+                if (currentPage === 'landing') {
+                    navButtons.innerHTML = `
+                        <button onclick="showLogin()" class="px-4 py-2 text-medical-600 hover:text-medical-700 transition-colors">
+                            Sign In
+                        </button>
+                        <button onclick="showRegister()" class="px-4 py-2 bg-medical-500 text-white rounded-lg hover:bg-medical-600 transition-colors">
+                            Get Started
+                        </button>
+                    `;
+                } else {
+                    navButtons.innerHTML = `
+                        <button onclick="showLanding()" class="px-4 py-2 text-gray-600 hover:text-gray-700 transition-colors">
+                            <i class="fas fa-home mr-1"></i>Home
+                        </button>
+                    `;
+                }
+            }
+        }
+
+        function showStatus(message, type = 'success') {
+            const statusDiv = document.getElementById('status-message');
+            const statusIcon = document.getElementById('status-icon');
+            const statusText = document.getElementById('status-text');
+            
+            statusText.textContent = message;
+            
+            if (type === 'success') {
+                statusDiv.className = 'fixed top-20 right-4 z-50 animate-fade-in';
+                statusDiv.firstElementChild.className = 'bg-white border-l-4 border-green-400 rounded-lg shadow-lg p-4 max-w-sm';
+                statusIcon.className = 'fas fa-check-circle text-green-400 text-xl';
+            } else {
+                statusDiv.className = 'fixed top-20 right-4 z-50 animate-fade-in';
+                statusDiv.firstElementChild.className = 'bg-white border-l-4 border-red-400 rounded-lg shadow-lg p-4 max-w-sm';
+                statusIcon.className = 'fas fa-exclamation-circle text-red-400 text-xl';
+            }
+            
+            statusDiv.classList.remove('hidden');
+            setTimeout(() => {
+                statusDiv.classList.add('hidden');
+            }, 4000);
+        }
+
+        function addMessage(message, isUser = false) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            
+            if (isUser) {
+                messageDiv.className = 'flex items-start space-x-3 justify-end';
+                messageDiv.innerHTML = `
+                    <div class="bg-gradient-to-r from-medical-500 to-secondary text-white rounded-2xl rounded-tr-none p-4 max-w-xs lg:max-w-md">
+                        <p>${message}</p>
+                    </div>
+                    <div class="bg-gray-300 p-2 rounded-full">
+                        <i class="fas fa-user text-gray-600 text-sm"></i>
+                    </div>
+                `;
+            } else {
+                messageDiv.className = 'flex items-start space-x-3';
+                messageDiv.innerHTML = `
+                    <div class="bg-gradient-to-r from-medical-500 to-secondary p-2 rounded-full">
+                        <i class="fas fa-robot text-white text-sm"></i>
+                    </div>
+                    <div class="bg-gray-100 rounded-2xl rounded-tl-none p-4 max-w-xs lg:max-w-md">
+                        <p class="text-gray-800">${message}</p>
+                    </div>
+                `;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Event Handlers
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const response = await fetch('/token', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&grant_type=password`
+                });
+
+                const result = await response.json();
+                
+                if (response.ok && result.access_token) {
+                    authState.token = result.access_token;
+                    authState.username = username;
+                    authState.isLoggedIn = true;
+                    document.getElementById('user-status').textContent = `Welcome, ${username}!`;
+                    showChat();
+                    showStatus('Login successful!');
+                    document.getElementById('login-form').reset();
+                } else {
+                    showStatus(result.detail || 'Login failed', 'error');
+                }
+            } catch (error) {
+                showStatus('Login error occurred', 'error');
+            }
+        });
+
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showStatus('Registration successful! Please sign in.');
+                    document.getElementById('register-form').reset();
+                    setTimeout(() => showLogin(), 1500);
+                } else {
+                    showStatus(result.detail || 'Registration failed', 'error');
+                }
+            } catch (error) {
+                showStatus('Registration error occurred', 'error');
+            }
+        });
+
+        document.getElementById('chat-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!authState.isLoggedIn || !authState.token) {
+                showStatus('Please login first!', 'error');
+                return;
+            }
+
+            const query = document.getElementById('chat-input').value.trim();
+            if (!query) return;
+
+            addMessage(query, true);
+            document.getElementById('chat-input').value = '';
+
+            try {
+                const response = await fetch(`/chatbot?query=${encodeURIComponent(query)}`, {
+                    method: 'GET',
+                    headers: { 
+                        'Authorization': `Bearer ${authState.token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    addMessage(result.response);
+                } else {
+                    if (response.status === 401) {
+                        logout();
+                        showStatus('Session expired. Please login again.', 'error');
+                    } else {
+                        addMessage('Sorry, I encountered an error. Please try again.');
+                        showStatus(result.detail || 'Error getting response', 'error');
+                    }
+                }
+            } catch (error) {
+                addMessage('Sorry, I encountered a connection error. Please try again.');
+                showStatus('Error communicating with chatbot', 'error');
+            }
+        });
+
+        function logout() {
+            authState.token = null;
+            authState.username = null;
+            authState.isLoggedIn = false;
+            document.getElementById('chat-messages').innerHTML = `
+                <div class="flex items-start space-x-3">
+                    <div class="bg-gradient-to-r from-medical-500 to-secondary p-2 rounded-full">
+                        <i class="fas fa-robot text-white text-sm"></i>
+                    </div>
+                    <div class="bg-medical-50 rounded-2xl rounded-tl-none p-4 max-w-xs lg:max-w-md">
+                        <p class="text-gray-800">Hello! I'm MediBot, your AI medical assistant. How can I help you today?</p>
+                    </div>
+                </div>
+            `;
+            showLanding();
+            showStatus('Logged out successfully');
+        }
+
+        // Initialize
+        updateNavigation();
+    </script>
+</body>
+</html>
