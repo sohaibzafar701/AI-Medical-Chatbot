@@ -1,5 +1,3 @@
-Below is a detailed GitHub README.md file for your "Medical Chatbot" project, tailored for beginners. It includes all steps from downloading the dataset from `https://github.com/abachaa/MedQuAD.git`, cleaning it, converting it to JSON, indexing it with ChromaDB, and setting up the FastAPI application. The instructions specify exact directories for running commands and pasting files, ensuring a noob-friendly experience. The current date and time is 12:41 AM PKT on Saturday, June 14, 2025, and I’ll reflect the completed workflow.
-
 ```markdown
 # Medical Chatbot
 
