@@ -1,4 +1,3 @@
-```markdown
 # Medical Chatbot
 
 A beginner-friendly FastAPI-based web application that provides a medical chatbot powered by ChromaDB. The chatbot uses a dataset from MedQuAD to answer medical questions after registration and login. This README guides you step-by-step, even if you're new to coding, to set up, prepare the dataset, and run the app without errors.
