@@ -124,9 +124,10 @@ The chatbot uses the MedQuAD dataset. Follow these steps to download and prepare
   ```bash
   cd ../app
   ```
-- Create a `.env` file:
+- Create a `.env` file with following values:
   ```bash
-  echo "SECRET_KEY=your_secure_key_here" > .env
+  SECRET_KEY=your_secure_key_here
+  CHROMADB_TELEMETRY_ENABLED=false
   ```
 - Replace `your_secure_key_here` with a unique key (e.g., `openssl rand -hex 32`).
 
@@ -201,4 +202,3 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
 - **FastAPI**, **ChromaDB**, **SentenceTransformer**, **Tailwind CSS**, and the **xAI Community**.
-```
